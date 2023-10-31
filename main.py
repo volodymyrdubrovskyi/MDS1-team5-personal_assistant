@@ -1,4 +1,5 @@
 from classes import *
+from mod4 import *
 
 
 def parse_input(user_input):
@@ -13,9 +14,9 @@ def main():
     # Загружаем адресную книгу, если находим. 
     # Если не находим: Делаем пустую AdressBook
     try:
-        abook = AddressBook().read_from_file()
+        book = AddressBook().read_from_file()
     except:
-        abook = AddressBook()
+        book = AddressBook()
 
     
     while True:
@@ -24,9 +25,7 @@ def main():
             command, *args = parse_input(user_input)
             
             if command in ['close', 'exit']:
-                # выход, тут сохраняем AdressBook
-                abook.save_to_file()
-                print('Good bye!')
+                exit_procedure(book)
                 break
 
             elif command == 'hello':
