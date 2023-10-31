@@ -103,3 +103,8 @@ class AddressBook(UserDict):
     def save_to_file(self):
         with open('abook.dat', 'wb') as fh:
             pickle.dump(self, fh)
+    
+    # добавление записи в словарь адресной книги
+    def add_record(self, record):
+        self.data[record.name.value] = record
+        

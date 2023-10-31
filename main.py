@@ -30,6 +30,9 @@ def main():
 
             elif command == 'hello':
                 print('How can I help you?')
+
+            elif command == 'add':
+                add_record(book, args)
             
             else:
                 print('Error: Invalid command.')
