@@ -34,6 +34,12 @@ def main():
             elif command == 'add':
                 add_record(book, args)
 
+            elif command == 'edit':
+                edit_record(book, args)
+
+            elif command == 'del':
+                del_record(book, args)
+
             elif command == 'add-phone':
                 add_phone_in_rec(book, args)
             
@@ -44,6 +50,7 @@ def main():
                 del_phone_in_rec(book, args)
 
             elif command == 'all':
+                print(f'Counter: {book.user_id_counter}, data: {book}')  # for debug
                 for _, record in book.data.items():
                     print(record)
             else:

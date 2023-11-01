@@ -8,8 +8,30 @@ def exit_procedure(book:AddressBook):
 
 def add_record(book:AddressBook, args:list):
     if len(args) ==1:
-        book.add_record(Record(args[0]))
+        book.add_record(Record(args[0], book))
         print('Record created sucessfully')
+    else:
+        print('Error: Invalid command format.')
+
+# редактирование имени контакта
+def edit_record(book:AddressBook, args:list):
+    if len(args) ==1:
+        if int(args[0]) in book.data:
+            book.del_record(args)
+            print('Record sucessfully deleted')
+        else:
+            print(f'Contact id {args[0]} not found')
+    else:
+        print('Error: Invalid command format.')
+
+# удаление контакта
+def del_record(book:AddressBook, args:list):
+    if len(args) ==1:
+        if int(args[0]) in book.data:
+            book.del_record(args)
+            print('Record sucessfully deleted')
+        else:
+            print(f'Contact id {args[0]} not found')
     else:
         print('Error: Invalid command format.')
 

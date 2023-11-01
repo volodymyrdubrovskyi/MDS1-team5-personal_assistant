@@ -64,11 +64,10 @@ class Email(Field):
         self.value = value
 
 class Record:
-    USER_COUNTER = 0
+    # USER_COUNTER = 0
 
-    def __init__(self, name, birthday=None):
-        self.user_id = Record.USER_COUNTER
-        Record.USER_COUNTER += 1
+    def __init__(self, name, book, birthday=None):
+        self.user_id = book.user_id_counter
         self.name = Name(name)
         self.phones = []
         self.emails = []
@@ -120,7 +119,9 @@ class Record:
     def __str__(self):
         phones_line = f", phones: {'; '.join(p.value for p in self.phones)}" if self.phones else ""
         birthday_line = f", birthday: {self.birthday.__str__}" if self.birthday else ""
-        return f"Contact id: {self.user_id}, name: {self.name.value}" + phones_line + birthday_line
+        emails_line = f", emails: {'; '.join(p.value for p in self.emails)}" if self.emails else ""
+        address_line = f", adress: {self.address}" if self.address else ""
+        return f"Contact id: {self.user_id}, name: {self.name.value}" + phones_line + birthday_line + emails_line + address_line
     
 class AddressBook(UserDict):
     def __init__(self):
@@ -139,3 +140,11 @@ class AddressBook(UserDict):
     def add_record(self, record):
         self.data[self.user_id_counter] = record
         self.user_id_counter += 1
+    
+    # редактирование имени записи в адресной книге
+    def edit_record(self, args):
+        self.data[int(args[0])].name.value = args[1]
+
+    # удаление записи в адресной книге
+    def del_record(self, args):
+        self.data.pop(int(args[0]))
