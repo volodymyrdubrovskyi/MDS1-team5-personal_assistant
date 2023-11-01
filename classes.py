@@ -51,7 +51,7 @@ class Birthday:
             self.value = datetime.date(year=int(date[6:10]), month=int(date[3:5]), day=int(date[0:2]))
 
     def __str__(self) -> str:
-        return 'No Data' if self.bday == None else self.bday.strftime('%d.%m.%Y')
+        return 'No Data' if self.value == None else self.value.strftime('%d.%m.%Y')
     
 class Phone(Field):
     MAX_PHONE_LEN = 10
@@ -64,17 +64,30 @@ class Email(Field):
         self.value = value
 
 class Record:
+    USER_COUNTER = 0
+
     def __init__(self, name, birthday=None):
-        self.user_id = None
+        self.user_id = Record.USER_COUNTER
+        Record.USER_COUNTER += 1
         self.name = Name(name)
         self.phones = []
         self.emails = []
         self.birthday = birthday
         self.address = ''
 
-    # добавление обїекта телефон в запись
+    # добавление объекта телефон в запись
     def add_phone(self, phone):
-        pass
+        if len(phone) != Phone.MAX_PHONE_LEN:
+            raise LenPhoneError
+        elif not phone.isdigit():
+            raise TypePhoneError
+        else:
+            new_phone = True
+            for p in self.phones:
+                if p.value == phone:
+                    new_phone = False
+            if new_phone:
+                self.phones.append(Phone(phone))
         
     # удаление телефона из списка телефонов
     def remove_phone(self, phone):
@@ -89,7 +102,9 @@ class Record:
         pass
 
     def __str__(self):
-        return f"Contact name: {self.name.value}, phones: {'; '.join(p.value for p in self.phones)}"
+        phones_line = f", phones: {'; '.join(p.value for p in self.phones)}" if self.phones else ""
+        birthday_line = f", birthday: {self.birthday.__str__}" if self.birthday else ""
+        return f"Contact id: {self.user_id}, name: {self.name.value}" + phones_line + birthday_line
     
 class AddressBook(UserDict):
     def __init__(self):
@@ -106,5 +121,5 @@ class AddressBook(UserDict):
     
     # добавление записи в словарь адресной книги
     def add_record(self, record):
-        self.data[record.name.value] = record
-        
+        self.data[self.user_id_counter] = record
+        self.user_id_counter += 1

@@ -33,7 +33,13 @@ def main():
 
             elif command == 'add':
                 add_record(book, args)
+
+            elif command == 'add-phone':
+                add_phone_in_rec(book, args)
             
+            elif command == 'all':
+                for _, record in book.data.items():
+                    print(record)
             else:
                 print('Error: Invalid command.')
 
