@@ -2,7 +2,7 @@ from classes import *
 from mod4 import *
 from mod2 import session
 
-
+# считываем с терминала команду
 def parse_input(user_input):
     cmd, *args = user_input.split()
     cmd = cmd.strip().lower()

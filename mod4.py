@@ -5,7 +5,7 @@ def exit_procedure(book:AddressBook):
     book.save_to_file()
     print('Good bye!')
 
-
+# Создаем запись контакта
 def add_record(book:AddressBook, args:list):
     if len(args) ==1:
         book.add_record(Record(args[0], book))
@@ -35,7 +35,7 @@ def del_record(book:AddressBook, args:list):
     else:
         print('Error: Invalid command format.')
 
-
+# Добавляем номер телефона контакту
 def add_phone_in_rec(book:AddressBook, args:list):
     if len(args) ==2:
         try:
@@ -50,6 +50,7 @@ def add_phone_in_rec(book:AddressBook, args:list):
     else:
         print('Error: Invalid command format.')
 
+# Изменяем номер телефона контакта
 def edit_phone_in_rec(book:AddressBook, args:list):
     if len(args) ==3:
         try:
@@ -65,6 +66,7 @@ def edit_phone_in_rec(book:AddressBook, args:list):
     else:
         print('Error: Invalid command format.')
 
+# Удаляем номер телефона в контакте
 def del_phone_in_rec(book:AddressBook, args:list):
     if len(args) ==2:
         try:
