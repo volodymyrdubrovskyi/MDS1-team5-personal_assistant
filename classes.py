@@ -91,15 +91,31 @@ class Record:
         
     # удаление телефона из списка телефонов
     def remove_phone(self, phone):
-        pass
+        find_phone = False
+        for p in self.phones:
+            if p.value == phone:
+                find_phone = True
+                phone_to_remove = p
+        if find_phone:
+            self.phones.remove(phone_to_remove)
+        else:
+            raise PhoneNotFindError
 
     # изменение обїекта телефон в записи
     def edit_phone(self, phone_old, phone_new):
-        pass
+        if len(phone_new) != Phone.MAX_PHONE_LEN:
+            raise LenPhoneError
+        elif not phone_new.isdigit():
+            raise TypePhoneError
+        else:
+            sucsess = False
+            for phone in self.phones:
+                if phone.value == phone_old:
+                    phone.value = phone_new
+                    sucsess = True
+            if not sucsess:
+                raise PhoneNotFindError
 
-    # поиск номера телефона в текущей записи
-    def find_phone(self, phone):
-        pass
 
     def __str__(self):
         phones_line = f", phones: {'; '.join(p.value for p in self.phones)}" if self.phones else ""

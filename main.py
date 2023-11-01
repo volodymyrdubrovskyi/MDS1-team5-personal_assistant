@@ -37,6 +37,12 @@ def main():
             elif command == 'add-phone':
                 add_phone_in_rec(book, args)
             
+            elif command == 'edit-phone':
+                edit_phone_in_rec(book, args)
+
+            elif command == 'del-phone':
+                del_phone_in_rec(book, args)
+
             elif command == 'all':
                 for _, record in book.data.items():
                     print(record)

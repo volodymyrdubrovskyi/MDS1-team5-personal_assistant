@@ -27,3 +27,31 @@ def add_phone_in_rec(book:AddressBook, args:list):
             print('Error: Phone must be 10 symbols')
     else:
         print('Error: Invalid command format.')
+
+def edit_phone_in_rec(book:AddressBook, args:list):
+    if len(args) ==3:
+        try:
+            rec = book.data[int(args[0])]
+            rec.edit_phone(args[1], args[2])
+            print('Phone changed sucessfully.')
+        except RecordNotFindError:
+            print('Error: User not found.')
+        except LenPhoneError:
+            print('Error: Phone must be 10 symbols')
+        except PhoneNotFindError:
+            print('Error: Phone to change is not found.')
+    else:
+        print('Error: Invalid command format.')
+
+def del_phone_in_rec(book:AddressBook, args:list):
+    if len(args) ==2:
+        try:
+            rec = book.data[int(args[0])]
+            rec.remove_phone(args[1])
+            print('Phone deleted sucessfully.')
+        except RecordNotFindError:
+            print('Error: User not found.')
+        except PhoneNotFindError:
+            print('Error: Phone to delete is not found.')
+    else:
+        print('Error: Invalid command format.')
