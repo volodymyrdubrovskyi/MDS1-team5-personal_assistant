@@ -57,6 +57,12 @@ def main():
             elif command == 'del-birthday':
                 del_birthday(book, args)
 
+            elif command == 'address':
+                address_record(book, args)
+
+            elif command == 'del-address':
+                del_address(book, args)
+
             elif command == 'all':
                 for _, record in book.data.items():
                     print(record)
