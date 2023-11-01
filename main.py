@@ -1,5 +1,6 @@
 from classes import *
 from mod4 import *
+from mod2 import session
 
 
 def parse_input(user_input):
@@ -20,7 +21,7 @@ def main():
 
     
     while True:
-        user_input = input("Enter a command: ")
+        user_input = session.prompt("Enter a command: ")
         if user_input:
             command, *args = parse_input(user_input)
             
