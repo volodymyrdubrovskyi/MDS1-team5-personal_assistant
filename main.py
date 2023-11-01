@@ -1,7 +1,8 @@
 from classes import *
 from mod4 import *
+from mod2 import session
 
-
+# считываем с терминала команду
 def parse_input(user_input):
     cmd, *args = user_input.split()
     cmd = cmd.strip().lower()
@@ -20,7 +21,7 @@ def main():
 
     
     while True:
-        user_input = input("Enter a command: ")
+        user_input = session.prompt("Enter a command: ")
         if user_input:
             command, *args = parse_input(user_input)
             
@@ -50,7 +51,6 @@ def main():
                 del_phone_in_rec(book, args)
 
             elif command == 'all':
-                print(f'Counter: {book.user_id_counter}, data: {book}')  # for debug
                 for _, record in book.data.items():
                     print(record)
             else:
