@@ -50,7 +50,6 @@ def main():
                 del_phone_in_rec(book, args)
 
             elif command == 'all':
-                print(f'Counter: {book.user_id_counter}, data: {book}')  # for debug
                 for _, record in book.data.items():
                     print(record)
             else:
