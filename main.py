@@ -1,6 +1,7 @@
 from classes import *
 from mod4 import *
 from mod2 import session
+from mod3 import *
 
 # считываем с терминала команду
 def parse_input(user_input):
@@ -49,6 +50,12 @@ def main():
 
             elif command == 'del-phone':
                 del_phone_in_rec(book, args)
+
+            elif command == 'birthday':
+                birthday_record(book, args)
+
+            elif command == 'del-birthday':
+                del_birthday(book, args)
 
             elif command == 'all':
                 for _, record in book.data.items():
