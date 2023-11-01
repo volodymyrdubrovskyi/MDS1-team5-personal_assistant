@@ -1,4 +1,5 @@
-
+from classes import *
+from mod1 import *
 if __name__ == '__main__':
     assistant = PersonalAssistant()
     notes_manager = NotesManager()
