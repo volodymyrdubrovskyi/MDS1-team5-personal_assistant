@@ -24,6 +24,9 @@ class RecordNotFindError(Exception):
 class DateFormatError(Exception):
     pass
 
+class TypeEmailError(Exception):
+    pass
+
 class Field:
     def __init__(self, value):
         self.value = value
@@ -74,6 +77,46 @@ class Record:
         self.birthday = birthday
         self.address = ''
 
+    # Додавання email до запису
+    def add_email(self, email):
+        filteredemail = re.findall(r"[A-Za-z,0-9]{1}[a-z,A-Z,.,_,0-9]{0,}@[a-zA-Z]+[.]{1}[a-z,A-Z,.]{2,}", email)
+        if len(filteredemail) > 0 and email[-1] not in ['.',',','/','\\']:
+            new_email = True
+            for e in self.emails:
+                if e.value == filteredemail[0]:
+                    new_email = False
+            if new_email:
+                self.emails.append(Email(filteredemail[0]))
+                return True
+        else:
+            raise TypeEmailError
+
+    # Видаленя email з запису
+    def remove_email(self, email):
+        find_email = False
+        for e in self.emails:
+            if e.value == email:
+                find_email = True
+                email_to_remove = e
+        if find_email:
+            self.emails.remove(email_to_remove)
+        else:
+            raise PhoneNotFindError
+
+    #
+    def edit_email(self, email_old, email_new):
+        find_email = False
+        for e in self.emails:
+            if e.value == email_old:
+                find_email = True
+                email_to_remove = e
+        if find_email:
+            if self.add_email(email_new):
+                self.emails.remove(email_to_remove)
+        else:
+            raise PhoneNotFindError
+
+
     # добавление объекта телефон в запись
     def add_phone(self, phone):
         if len(phone) != Phone.MAX_PHONE_LEN:
@@ -100,7 +143,7 @@ class Record:
         else:
             raise PhoneNotFindError
 
-    # изменение обїекта телефон в записи
+    # изменение объекта телефон в записи
     def edit_phone(self, phone_old, phone_new):
         if len(phone_new) != Phone.MAX_PHONE_LEN:
             raise LenPhoneError

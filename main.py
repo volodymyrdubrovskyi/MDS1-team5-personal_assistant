@@ -51,6 +51,15 @@ def main():
             elif command == 'del-phone':
                 del_phone_in_rec(book, args)
 
+            elif command == 'add-email':
+                add_email_in_rec(book, args)
+            
+            elif command == 'edit-email':
+                edit_email_in_rec(book, args)
+
+            elif command == 'del-email':
+                del_email_in_rec(book, args)
+
             elif command == 'birthday':
                 birthday_record(book, args)
 
