@@ -198,6 +198,3 @@ class Note:
         self.content = content
         self.tags = tags
         self.creation_date = datetime.datetime.now() 
-        
-notes = []
-

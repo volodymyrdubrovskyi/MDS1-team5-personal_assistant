@@ -81,7 +81,7 @@ def main():
                 show_help()
 
             elif command == 'note':
-                notes_func()
+                notes_func([])
 
             elif command == 'all':
                 for _, record in book.data.items():

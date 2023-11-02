@@ -20,9 +20,9 @@ def load_notes_from_file():
                 note.creation_date = creation_date
                 notes.append(note)
     except FileNotFoundError:
-        
-        pass
+        notes = []
 
+  
 def notes_func():
     load_notes_from_file() 
     while True:
@@ -32,7 +32,7 @@ def notes_func():
         print("4. Edit a Note")
         print("5. Delete a Note")
         print("6. Return to the Main Menu")
-
+        
         notes_choice = nsession.prompt("Select an option for notes: ")
 
         if notes_choice == '1':
@@ -94,4 +94,10 @@ def notes_func():
         elif notes_choice == '6':
             break
 
+
+        else:
+            print("Please select an option from 1 to 6. For help, refer to the Help file.")
+
+
     save_notes_to_file()
+
