@@ -38,20 +38,13 @@ class Name(Field):
     def __init__(self, value):
         self.value = value
 
-class Birthday(Field):
+class Birthday:
     def __init__(self, date=None):
             result = re.findall(r'\d\d.\d\d.\d\d\d\d', date)
-            if result:
+            if result != []:
                 self.value = datetime.date(year=int(date[6:10]), month=int(date[3:5]), day=int(date[0:2]))
             else:
                 raise DateFormatError
-
-    def add_bday(self, date):
-        result = re.findall(r"\d\d.\d\d.\d\d\d\d", date)
-        if not result:
-            raise DateFormatError
-        else:
-            self.value = datetime.date(year=int(date[6:10]), month=int(date[3:5]), day=int(date[0:2]))
 
     def __str__(self) -> str:
         return 'No Data' if self.value == None else self.value.strftime('%d.%m.%Y')
@@ -199,13 +192,12 @@ class AddressBook(UserDict):
     # удаление записи в адресной книге
     def del_record(self, args):
         self.data.pop(int(args[0]))
-from datetime import datetime
 
 class Note:
     def __init__(self, content, tags):
         self.content = content
         self.tags = tags
-        self.creation_date = datetime.now() 
+        self.creation_date = datetime.datetime.now() 
         
 notes = []
 
