@@ -75,6 +75,9 @@ def main():
             elif command == 'find':
                 find_in_records(book, args)
 
+            elif command == 'help':
+                show_help()
+
             elif command == 'all':
                 for _, record in book.data.items():
                     print(record)
