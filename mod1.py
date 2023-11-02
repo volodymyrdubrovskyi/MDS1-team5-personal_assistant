@@ -2,7 +2,8 @@ from classes import *
 from mod1 import *
 from mod2 import nsession
 
-def notes_func():
+def notes_func(notes):
+    
     while True:
         print("\n1. Add a Note")
         print("2. Search Notes by Tag")
@@ -10,7 +11,7 @@ def notes_func():
         print("4. Edit a Note")
         print("5. Delete a Note")
         print("6. Return to the Main Menu")
-
+        
         notes_choice = nsession.prompt("Select an option for notes: ")
 
         if notes_choice == '1':
@@ -73,3 +74,4 @@ def notes_func():
 
         else:
             print("Please select an option from 1 to 6. For help, refer to the Help file.")
+    return notes
