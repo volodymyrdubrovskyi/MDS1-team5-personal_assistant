@@ -191,3 +191,13 @@ class AddressBook(UserDict):
     # удаление записи в адресной книге
     def del_record(self, args):
         self.data.pop(int(args[0]))
+from datetime import datetime
+
+class Note:
+    def __init__(self, content, tags):
+        self.content = content
+        self.tags = tags
+        self.creation_date = datetime.now() 
+        
+notes = []
+
