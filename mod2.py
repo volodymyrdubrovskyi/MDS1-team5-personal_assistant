@@ -4,5 +4,8 @@ from prompt_toolkit.completion import WordCompleter
 # Внешний пакет нужно сначала установить в терминале: pip install prompt_toolkit
 
 commands = WordCompleter([
-    "close", "exit", "hello", "add", "edit", "del", "add-phone", "edit-phone", "del-phone", "all", "add-email"], ignore_case=True)
+    "close", "exit", "hello", "add", "edit", "del", 
+    "add-phone", "edit-phone", "del-phone", "all", 
+    "add-email", "edit-email", "del-email", 
+    "birthday", "del-birthday"], ignore_case=True)
 session = PromptSession(completer=commands)

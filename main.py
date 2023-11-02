@@ -2,6 +2,7 @@ from classes import *
 from mod4 import *
 from mod2 import session
 from mod3 import *
+from mod1 import *
 
 # считываем с терминала команду
 def parse_input(user_input):
@@ -71,6 +72,12 @@ def main():
 
             elif command == 'del-address':
                 del_address(book, args)
+
+            elif command == 'find':
+                find_in_records(book, args)
+
+            elif command == 'help':
+                show_help()
 
             elif command == 'all':
                 for _, record in book.data.items():
