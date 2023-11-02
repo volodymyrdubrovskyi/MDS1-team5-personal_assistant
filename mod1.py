@@ -4,7 +4,7 @@ from mod2 import nsession
 
 def notes_func():
     while True:
-        print("1. Add a Note")
+        print("\n1. Add a Note")
         print("2. Search Notes by Tag")
         print("3. Show All Notes (Sorted by Date)")
         print("4. Edit a Note")
