@@ -114,4 +114,5 @@ def show_help():
     help_string +=  'find [serchstring] -> list all users with [serchstring] data in Name, Phones, Address, Emails, Birthdays. [serchstring] must be 2 symbols minimum\n'
     help_string +=  'close -> exit the bot\n'
     help_string +=  'exit -> exit the bot\n'
+    help_string +=  'note -> switch to note functional\n'
     print(help_string)
