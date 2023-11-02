@@ -1,4 +1,4 @@
-rom classes import *
+from classes import *
 from mod4 import *
 from mod2 import session
 from mod3 import *
