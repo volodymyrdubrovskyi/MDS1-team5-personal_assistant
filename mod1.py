@@ -1,109 +1,87 @@
-class NotesManager:
-    def __init__(self):
-        # Ініціалізація менеджера нотаток і отримання доступу до даних помічника
-        self.data = assistant.data
-
-    def add_note(self, text):
-        # Додавання нової нотатки до списку нотаток
-        note = {'text': text, 'tags': []}
-        self.data['notes'].append(note)
-        assistant.save_data()
-
-    def find_notes_by_tag(self, tag):
-        # Пошук нотаток за вказаним тегом
-        results = [note for note in self.data['notes'] if tag in note['tags']]
-        return results
-
-    def show_all_notes(self):
-        # Виведення всіх існуючих нотаток
-        if self.data['notes']:
-            for idx, note in enumerate(self.data['notes']):
-                print(f"{idx + 1}. {note['text']}")
-        else:
-            print("Нотаток немає.")
-
-    def edit_note(self, note_idx, new_text):
-        # Редагування вибраної нотатки
-        if 0 <= note_idx < len(self.data['notes']):
-            self.data['notes'][note_idx]['text'] = new_text
-            assistant.save_data()
-            print("Нотатку відредаговано.")
-        else:
-            print("Неправильний номер нотатки.")
-
-    def delete_note(self, note_idx):
-        # Видалення вибраної нотатки
-        if 0 <= note_idx < len(self.data['notes']):
-            del self.data['notes'][note_idx]
-            assistant.save_data()
-            print("Нотатку видалено.")
-        else:
-            print("Неправильний номер нотатки.")
-
-if __name__ == '__main__':
-    assistant = PersonalAssistant()
-    notes_manager = NotesManager()
-
+from classes import *
+from mod1 import *
+def notes_func():
     while True:
-        print("1. Додати контакт")
-        print("2. Пошук контактів за іменем")
-        print("3. Вивести контакти з найближчими днями народження")
-        print("4. Нотатки")
-        print("5. Вийти")
+        print("1. Add a Note")
+        print("2. Search Notes by Tag")
+        print("3. Show All Notes (Sorted by Date)")
+        print("4. Edit a Note")
+        print("5. Delete a Note")
+        print("6. Return to the Main Menu")
 
-        choice = input("Виберіть опцію: ")
+        notes_choice = input("Select an option for notes: ")
 
-        if choice == '1':
-            # Додавання контакту
-            pass
+        if notes_choice == '1':
+            # Add a new note
+            content = input("Enter the content of the note: ")
+            tags = input("Enter tags (separated by spaces): ").split()
+            note = Note(content, tags)  # Create a Note object
+            notes.append(note)  # Add the note to the list
 
-        elif choice == '2':
-            # Пошук контактів за іменем
-            pass
+        elif notes_choice == '2':
+            # Search notes by tag
+            search_tag = input("Enter a tag to search for: ")
+            found_notes = [note for note in notes if search_tag in note.tags]
+            if found_notes:
+                print("Found notes:")
+                for i, note in enumerate(found_notes, 1):
+                    print(f"{i}. {note.content} (Tags: {', '.join(note.tags)}) (Date: {note.creation_date})")
+            else:
+                print("No notes found with this tag.")
 
-        elif choice == '3':
-            # Виведення найближчих днів народження
-            pass
+        elif notes_choice == '3':
+            # Show all existing notes sorted by date
+            if notes:
+                sorted_notes = sorted(notes, key=lambda note: note.creation_date)
+                print("All existing notes (Sorted by Date):")
+                for i, note in enumerate(sorted_notes, 1):
+                    print(f"{i}. {note.content} (Tags: {', '.join(note.tags)}) (Date: {note.creation_date})")
+            else:
+                print("There are no notes available.")
 
-        elif choice == '4':
-            while True:
-                print("1. Додати нотатку")
-                print("2. Пошук нотаток за тегом")
-                print("3. Показати всі нотатки")
-                print("4. Редагувати нотатку")
-                print("5. Видалити нотатку")
-                print("6. Повернутися до головного меню")
+        elif notes_choice == '4':
+            # Edit a selected note
+            if not notes:
+                print("There are no notes to edit.")
+            else:
+                index_to_edit = int(input("Enter the number of the note you want to edit: ")) - 1
+                if 0 <= index_to edit < len(notes):
+                    new_content = input("Enter the new content of the note: ")
+                    new_tags = input("Enter new tags (separated by spaces): ").split()
+                    notes[index_to_edit].content = new_content
+                    notes[index_to_edit].tags = new_tags
+                    print("The note has been successfully edited.")
+                else:
+                    print("Invalid note number.")
 
-                notes_choice = input("Виберіть опцію для нотаток: ")
+        elif notes_choice == '5':
+            # Delete a selected note
+            if not notes:
+                print("There are no notes to delete.")
+            else:
+                index_to_delete = int(input("Enter the number of the note you want to delete: ")) - 1
+                if 0 <= index_to_delete < len(notes):
+                    del notes[index_to_delete]
+                    print("The note has been successfully deleted.")
+                else:
+                    print("Invalid note number.")
 
-                if notes_choice == '1':
-                    # Додавання нової нотатки
-                    pass
-
-                elif notes_choice == '2':
-                    # Пошук нотаток за тегом
-                    pass
-
-                elif notes_choice == '3':
-                    # Виведення всіх існуючих нотаток
-                    pass
-
-                elif notes_choice == '4':
-                    # Редагування вибраної нотатки
-                    pass
-
-                elif notes_choice == '5':
-                    # Видалення вибраної нотатки
-                    pass
-
-                elif notes_choice == '6':
-                    break
-
-        elif choice == '5':
+        elif notes_choice == '6':
             break
 
-                elif notes_choice == '6':
-                    break
+if __name__ == "__main__":
+    while True:
+        print("1. Notes Menu")
+        print("2. Another Option (add your own options)")
+        print("3. Exit")
 
-        elif choice == '5':
+        choice = input("Select an option: ")
+
+        if choice == '1':
+            notes_func()
+        elif choice == '2':
+            # Implement your other options here
+            pass
+        elif choice == '3':
+            print("Goodbye!")
             break
