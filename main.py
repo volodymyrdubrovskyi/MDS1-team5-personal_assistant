@@ -1,7 +1,10 @@
-from classes import *
+rom classes import *
 from mod4 import *
+from mod2 import session
+from mod3 import *
+from mod1 import *
 
-
+# считываем с терминала команду
 def parse_input(user_input):
     cmd, *args = user_input.split()
     cmd = cmd.strip().lower()
@@ -20,7 +23,7 @@ def main():
 
     
     while True:
-        user_input = input("Enter a command: ")
+        user_input = session.prompt("Enter a command: ")
         if user_input:
             command, *args = parse_input(user_input)
             
@@ -49,8 +52,28 @@ def main():
             elif command == 'del-phone':
                 del_phone_in_rec(book, args)
 
+            elif command == 'add-email':
+                add_email_in_rec(book, args)
+            
+            elif command == 'edit-email':
+                edit_email_in_rec(book, args)
+
+            elif command == 'del-email':
+                del_email_in_rec(book, args)
+
+            elif command == 'birthday':
+                birthday_record(book, args)
+
+            elif command == 'del-birthday':
+                del_birthday(book, args)
+
+            elif command == 'address':
+                address_record(book, args)
+
+            elif command == 'del-address':
+                del_address(book, args)
+
             elif command == 'all':
-                print(f'Counter: {book.user_id_counter}, data: {book}')  # for debug
                 for _, record in book.data.items():
                     print(record)
             else:
