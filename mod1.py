@@ -1,9 +1,30 @@
 from classes import *
 from mod1 import *
 from mod2 import nsession
+import json
 
-def notes_func(notes):
-    
+def save_notes_to_file():
+    with open('notes.json', 'w') as file:
+        data = [{'content': note.content, 'tags': note.tags, 'creation_date': note.creation_date.strftime('%Y-%m-%d %H:%M:%S')} for note in notes]
+        json.dump(data, file)
+
+def load_notes_from_file():
+    try:
+        with open('notes.json', 'r') as file:
+            data = json.load(file)
+            for note_data in data:
+                content = note_data['content']
+                tags = note_data['tags']
+                creation_date = datetime.strptime(note_data['creation_date'], '%Y-%m-%d %H:%M:%S')
+                note = Note(content, tags)
+                note.creation_date = creation_date
+                notes.append(note)
+    except FileNotFoundError:
+        notes = []
+
+  
+def notes_func():
+    load_notes_from_file() 
     while True:
         print("\n1. Add a Note")
         print("2. Search Notes by Tag")
@@ -15,14 +36,15 @@ def notes_func(notes):
         notes_choice = nsession.prompt("Select an option for notes: ")
 
         if notes_choice == '1':
-            # Add a new note
+            
             content = nsession.prompt("Enter the content of the note: ")
             tags = nsession.prompt("Enter tags (separated by spaces): ").split()
-            note = Note(content, tags)  # Create a Note object
-            notes.append(note)  # Add the note to the list
+            note = Note(content, tags)  
+            notes.append(note)  
+            save_notes_to_file()  
 
         elif notes_choice == '2':
-            # Search notes by tag
+          
             search_tag = nsession.prompt("Enter a tag to search for: ")
             found_notes = [note for note in notes if search_tag in note.tags]
             if found_notes:
@@ -33,7 +55,7 @@ def notes_func(notes):
                 print("No notes found with this tag.")
 
         elif notes_choice == '3':
-            # Show all existing notes sorted by date
+            
             if notes:
                 sorted_notes = sorted(notes, key=lambda note: note.creation_date)
                 print("All existing notes (Sorted by Date):")
@@ -43,7 +65,7 @@ def notes_func(notes):
                 print("There are no notes available.")
 
         elif notes_choice == '4':
-            # Edit a selected note
+            
             if not notes:
                 print("There are no notes to edit.")
             else:
@@ -58,7 +80,7 @@ def notes_func(notes):
                     print("Invalid note number.")
 
         elif notes_choice == '5':
-            # Delete a selected note
+           
             if not notes:
                 print("There are no notes to delete.")
             else:
@@ -72,6 +94,10 @@ def notes_func(notes):
         elif notes_choice == '6':
             break
 
+
         else:
             print("Please select an option from 1 to 6. For help, refer to the Help file.")
-    return notes
+
+
+    save_notes_to_file()
+
