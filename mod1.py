@@ -3,7 +3,7 @@ from mod1 import *
 from mod2 import nsession
 import json
 
-def save_notes_to_file():
+def save_notes_to_file(notes):
     with open('notes.json', 'w') as file:
         data = [{'content': note.content, 'tags': note.tags, 'creation_date': note.creation_date.strftime('%Y-%m-%d %H:%M:%S')} for note in notes]
         json.dump(data, file)
@@ -99,5 +99,5 @@ def notes_func(notes):
             print("Please select an option from 1 to 6. For help, refer to the Help file.")
 
 
-    save_notes_to_file()
+    save_notes_to_file(notes)
 
