@@ -2,7 +2,7 @@ rom classes import *
 from mod4 import *
 from mod2 import session
 from mod3 import *
-from mod1 import *
+
 
 # считываем с терминала команду
 def parse_input(user_input):
