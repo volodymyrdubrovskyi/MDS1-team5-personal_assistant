@@ -45,7 +45,7 @@ def notes_func():
                 print("There are no notes to edit.")
             else:
                 index_to_edit = int(input("Enter the number of the note you want to edit: ")) - 1
-                if 0 <= index_to edit < len(notes):
+                if 0 <= index_to_edit < len(notes):
                     new_content = input("Enter the new content of the note: ")
                     new_tags = input("Enter new tags (separated by spaces): ").split()
                     notes[index_to_edit].content = new_content
@@ -69,19 +69,5 @@ def notes_func():
         elif notes_choice == '6':
             break
 
-if __name__ == "__main__":
-    while True:
-        print("1. Notes Menu")
-        print("2. Another Option (add your own options)")
-        print("3. Exit")
-
-        choice = input("Select an option: ")
-
-        if choice == '1':
-            notes_func()
-        elif choice == '2':
-            # Implement your other options here
-            pass
-        elif choice == '3':
-            print("Goodbye!")
-            break
+        else:
+            print("Please select an option from 1 to 6. For help, refer to the Help file.")
