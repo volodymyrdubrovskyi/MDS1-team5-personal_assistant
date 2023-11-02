@@ -24,6 +24,9 @@ class RecordNotFindError(Exception):
 class DateFormatError(Exception):
     pass
 
+class TypeEmailError(Exception):
+    pass
+
 class Field:
     def __init__(self, value):
         self.value = value
@@ -74,6 +77,46 @@ class Record:
         self.birthday = birthday
         self.address = ''
 
+    # Додавання email до запису
+    def add_email(self, email):
+        filteredemail = re.findall(r"[A-Za-z,0-9]{1}[a-z,A-Z,.,_,0-9]{0,}@[a-zA-Z]+[.]{1}[a-z,A-Z,.]{2,}", email)
+        if len(filteredemail) > 0 and email[-1] not in ['.',',','/','\\']:
+            new_email = True
+            for e in self.emails:
+                if e.value == filteredemail[0]:
+                    new_email = False
+            if new_email:
+                self.emails.append(Email(filteredemail[0]))
+                return True
+        else:
+            raise TypeEmailError
+
+    # Видаленя email з запису
+    def remove_email(self, email):
+        find_email = False
+        for e in self.emails:
+            if e.value == email:
+                find_email = True
+                email_to_remove = e
+        if find_email:
+            self.emails.remove(email_to_remove)
+        else:
+            raise PhoneNotFindError
+
+    #
+    def edit_email(self, email_old, email_new):
+        find_email = False
+        for e in self.emails:
+            if e.value == email_old:
+                find_email = True
+                email_to_remove = e
+        if find_email:
+            if self.add_email(email_new):
+                self.emails.remove(email_to_remove)
+        else:
+            raise PhoneNotFindError
+
+
     # добавление объекта телефон в запись
     def add_phone(self, phone):
         if len(phone) != Phone.MAX_PHONE_LEN:
@@ -100,7 +143,7 @@ class Record:
         else:
             raise PhoneNotFindError
 
-    # изменение обїекта телефон в записи
+    # изменение объекта телефон в записи
     def edit_phone(self, phone_old, phone_new):
         if len(phone_new) != Phone.MAX_PHONE_LEN:
             raise LenPhoneError
@@ -118,7 +161,7 @@ class Record:
 
     def __str__(self):
         phones_line = f", phones: {'; '.join(p.value for p in self.phones)}" if self.phones else ""
-        birthday_line = f", birthday: {self.birthday.__str__}" if self.birthday else ""
+        birthday_line = f", birthday: {self.birthday.__str__()}" if self.birthday else ""
         emails_line = f", emails: {'; '.join(p.value for p in self.emails)}" if self.emails else ""
         address_line = f", adress: {self.address}" if self.address else ""
         return f"Contact id: {self.user_id}, name: {self.name.value}" + phones_line + birthday_line + emails_line + address_line
@@ -148,45 +191,3 @@ class AddressBook(UserDict):
     # удаление записи в адресной книге
     def del_record(self, args):
         self.data.pop(int(args[0]))
-
-class NotesManager:
-    def __init__(self):
-        # Ініціалізація менеджера нотаток і отримання доступу до даних помічника
-        self.data = assistant.data
-
-    def add_note(self, text):
-        # Додавання нової нотатки до списку нотаток
-        note = {'text': text, 'tags': []}
-        self.data['notes'].append(note)
-        assistant.save_data()
-
-    def find_notes_by_tag(self, tag):
-        # Пошук нотаток за вказаним тегом
-        results = [note for note in self.data['notes'] if tag in note['tags']]
-        return results
-
-    def show_all_notes(self):
-        # Виведення всіх існуючих нотаток
-        if self.data['notes']:
-            for idx, note in enumerate(self.data['notes']):
-                print(f"{idx + 1}. {note['text']}")
-        else:
-            print("Нотаток немає.")
-
-    def edit_note(self, note_idx, new_text):
-        # Редагування вибраної нотатки
-        if 0 <= note_idx < len(self.data['notes']):
-            self.data['notes'][note_idx]['text'] = new_text
-            assistant.save_data()
-            print("Нотатку відредаговано.")
-        else:
-            print("Неправильний номер нотатки.")
-
-    def delete_note(self, note_idx):
-        # Видалення вибраної нотатки
-        if 0 <= note_idx < len(self.data['notes']):
-            del self.data['notes'][note_idx]
-            assistant.save_data()
-            print("Нотатку видалено.")
-        else:
-            print("Неправильний номер нотатки.")
