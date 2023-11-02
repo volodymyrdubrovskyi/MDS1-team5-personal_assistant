@@ -23,7 +23,7 @@ def load_notes_from_file():
         notes = []
 
   
-def notes_func():
+def notes_func(notes):
     load_notes_from_file() 
     while True:
         print("\n1. Add a Note")
