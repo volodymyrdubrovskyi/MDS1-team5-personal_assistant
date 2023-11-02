@@ -7,5 +7,6 @@ commands = WordCompleter([
     "close", "exit", "hello", "add", "edit", "del", 
     "add-phone", "edit-phone", "del-phone", "all", 
     "add-email", "edit-email", "del-email", 
-    "birthday", "del-birthday"], ignore_case=True)
+    "birthday", "del-birthday", "note", "help"], ignore_case=True)
 session = PromptSession(completer=commands)
+nsession = PromptSession()

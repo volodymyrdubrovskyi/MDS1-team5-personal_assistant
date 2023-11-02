@@ -1,26 +1,28 @@
 from classes import *
 from mod1 import *
+from mod2 import nsession
+
 def notes_func():
     while True:
-        print("1. Add a Note")
+        print("\n1. Add a Note")
         print("2. Search Notes by Tag")
         print("3. Show All Notes (Sorted by Date)")
         print("4. Edit a Note")
         print("5. Delete a Note")
         print("6. Return to the Main Menu")
 
-        notes_choice = input("Select an option for notes: ")
+        notes_choice = nsession.prompt("Select an option for notes: ")
 
         if notes_choice == '1':
             # Add a new note
-            content = input("Enter the content of the note: ")
-            tags = input("Enter tags (separated by spaces): ").split()
+            content = nsession.prompt("Enter the content of the note: ")
+            tags = nsession.prompt("Enter tags (separated by spaces): ").split()
             note = Note(content, tags)  # Create a Note object
             notes.append(note)  # Add the note to the list
 
         elif notes_choice == '2':
             # Search notes by tag
-            search_tag = input("Enter a tag to search for: ")
+            search_tag = nsession.prompt("Enter a tag to search for: ")
             found_notes = [note for note in notes if search_tag in note.tags]
             if found_notes:
                 print("Found notes:")
@@ -44,10 +46,10 @@ def notes_func():
             if not notes:
                 print("There are no notes to edit.")
             else:
-                index_to_edit = int(input("Enter the number of the note you want to edit: ")) - 1
+                index_to_edit = int(nsession.prompt("Enter the number of the note you want to edit: ")) - 1
                 if 0 <= index_to_edit < len(notes):
-                    new_content = input("Enter the new content of the note: ")
-                    new_tags = input("Enter new tags (separated by spaces): ").split()
+                    new_content = nsession.prompt("Enter the new content of the note: ")
+                    new_tags = nsession.prompt("Enter new tags (separated by spaces): ").split()
                     notes[index_to_edit].content = new_content
                     notes[index_to_edit].tags = new_tags
                     print("The note has been successfully edited.")
@@ -59,7 +61,7 @@ def notes_func():
             if not notes:
                 print("There are no notes to delete.")
             else:
-                index_to_delete = int(input("Enter the number of the note you want to delete: ")) - 1
+                index_to_delete = int(nsession.prompt("Enter the number of the note you want to delete: ")) - 1
                 if 0 <= index_to_delete < len(notes):
                     del notes[index_to_delete]
                     print("The note has been successfully deleted.")
