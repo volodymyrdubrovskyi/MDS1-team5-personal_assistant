@@ -38,7 +38,7 @@ class Name(Field):
     def __init__(self, value):
         self.value = value
 
-class Birthday:
+class Birthday(Field):
     def __init__(self, date=None):
             result = re.findall(r'\d\d.\d\d.\d\d\d\d', date)
             if result != []:
