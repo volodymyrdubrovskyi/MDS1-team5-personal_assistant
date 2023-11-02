@@ -79,3 +79,16 @@ def del_phone_in_rec(book:AddressBook, args:list):
             print('Error: Phone to delete is not found.')
     else:
         print('Error: Invalid command format.')
+
+# поиск
+def find_in_records(book:AddressBook, args:list):
+    if len(args) ==1 and len(args[0]) > 1:
+        count = 0
+        sstring = args[0].lower()
+        for _, record in book.data.items():
+            if record.searchstring().find(sstring) >=0:
+                print(record)
+                count += 1
+        print(f'Search complete. Total {count} records found.')    
+    else:
+        print('Error: Invalid command format. Search string must be more then 2 symbols')

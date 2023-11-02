@@ -72,6 +72,9 @@ def main():
             elif command == 'del-address':
                 del_address(book, args)
 
+            elif command == 'find':
+                find_in_records(book, args)
+
             elif command == 'all':
                 for _, record in book.data.items():
                     print(record)
