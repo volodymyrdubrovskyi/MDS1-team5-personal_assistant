@@ -4,23 +4,23 @@ import datetime
 import pickle
 
 
-# обработка ошибки количества символов в номере телефона
+# to handle of phone number not equal Phone.MAX_PHONE_LEN length
 class LenPhoneError(Exception):
     pass
 
-# обработка ошибки не числового номера телефона
+# to handle if phone conteains non-digits symbols
 class TypePhoneError(Exception):
     pass
 
-# обработка ошибки не нахождения телефона
+# to handle if phone doesn't found in record
 class PhoneNotFindError(Exception):
     pass
 
-# обработка ошибки не нахождения записи
+# to handle if record doesn't found in adress book
 class RecordNotFindError(Exception):
     pass
 
-# обработка неправильного формата даты
+# to handle wrong data input format
 class DateFormatError(Exception):
     pass
 
@@ -60,8 +60,6 @@ class Email(Field):
         self.value = value
 
 class Record:
-    # USER_COUNTER = 0
-
     def __init__(self, name, book, birthday=None):
         self.user_id = book.user_id_counter
         self.name = Name(name)
@@ -70,7 +68,7 @@ class Record:
         self.birthday = birthday
         self.address = ''
 
-    # Додавання email до запису
+    # to add an email to record
     def add_email(self, email):
         filteredemail = re.findall(r"[A-Za-z,0-9]{1}[a-z,A-Z,.,_,0-9]{0,}@[a-zA-Z]+[.]{1}[a-z,A-Z,.]{2,}", email)
         if len(filteredemail) > 0 and email[-1] not in ['.',',','/','\\']:
@@ -84,7 +82,7 @@ class Record:
         else:
             raise TypeEmailError
 
-    # Видаленя email з запису
+    # to remove an email from record
     def remove_email(self, email):
         find_email = False
         for e in self.emails:
@@ -96,7 +94,7 @@ class Record:
         else:
             raise PhoneNotFindError
 
-    #
+    # to edit email in record
     def edit_email(self, email_old, email_new):
         find_email = False
         for e in self.emails:
@@ -110,7 +108,7 @@ class Record:
             raise PhoneNotFindError
 
 
-    # добавление объекта телефон в запись
+    # to add phone to record
     def add_phone(self, phone):
         if len(phone) != Phone.MAX_PHONE_LEN:
             raise LenPhoneError
@@ -124,7 +122,7 @@ class Record:
             if new_phone:
                 self.phones.append(Phone(phone))
         
-    # удаление телефона из списка телефонов
+    # to remove phone from record
     def remove_phone(self, phone):
         find_phone = False
         for p in self.phones:
@@ -136,7 +134,7 @@ class Record:
         else:
             raise PhoneNotFindError
 
-    # изменение объекта телефон в записи
+    # to change one phone to another
     def edit_phone(self, phone_old, phone_new):
         if len(phone_new) != Phone.MAX_PHONE_LEN:
             raise LenPhoneError
@@ -151,6 +149,7 @@ class Record:
             if not sucsess:
                 raise PhoneNotFindError
 
+    # to create s string to use this string for search
     def searchstring(self):
         phones_line = f"{' '.join(p.value for p in self.phones)}" if self.phones else ""
         birthday_line = f"{self.birthday.__str__()}" if self.birthday else ""
@@ -172,27 +171,30 @@ class AddressBook(UserDict):
         self.user_id_counter = 0
         self.data = UserDict()
 
+    # to load adress book from file
     def read_from_file(self):
         with open('abook.dat', 'rb') as fh:
             return pickle.load(fh)
 
+    # to save adress book to file
     def save_to_file(self):
         with open('abook.dat', 'wb') as fh:
             pickle.dump(self, fh)
     
-    # добавление записи в словарь адресной книги
+    # adding a record to address book
     def add_record(self, record):
         self.data[self.user_id_counter] = record
         self.user_id_counter += 1
     
-    # редактирование имени записи в адресной книге
+    # to edit record name in address book
     def edit_record(self, args):
         self.data[int(args[0])].name.value = args[1]
 
-    # удаление записи в адресной книге
+    # to remove a record from adress book
     def del_record(self, args):
         self.data.pop(int(args[0]))
 
+# class with user notes
 class Note:
     def __init__(self, content, tags):
         self.content = content

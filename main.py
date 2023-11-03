@@ -17,8 +17,7 @@ def main():
 
     print('Welcome to the assistant bot!')
 
-    # Загружаем адресную книгу, если находим. 
-    # Если не находим: Делаем пустую AdressBook
+    # AddressBook load from 'abook.dat' file. If file doesn't exist, create new empty AddressBook
     try:
         book = AddressBook().read_from_file()
     except:
