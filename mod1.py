@@ -22,40 +22,51 @@ def load_notes_from_file():
     except FileNotFoundError:
         notes = []
 
-  
+def add_tags_to_note():
+    content = nsession.prompt("Enter the content of the note: ")
+    tags = nsession.prompt("Enter tags (separated by spaces): ").split()
+    note = Note(content, tags)
+    notes.append(note)
+    save_notes_to_file(notes)  
+    
+def search_notes_by_tag():
+    search_tag = nsession.prompt("Enter a tag to search for: ")
+    found_notes = [note for note in notes if search_tag in note.tags]
+    if found_notes:
+        print("Found notes:")
+        for i, note in enumerate(found_notes, 1):
+            print(f"{i}. {note.content} (Tags: {', '.join(note.tags)}) (Date: {note.creation_date})")
+    else:
+        print("No notes found with this tag.")
+
+
+def sort_notes_by_tag():
+   
+    sorted_notes = sorted(notes, key=lambda note: note.tags[0])
+    print("All existing notes (Sorted by Tag):")
+    for i, note in enumerate(sorted_notes, 1):
+        print(f"{i}. {note.content} (Tags: {', '.join(note.tags)}) (Date: {note.creation_date})")
+
 def notes_func(notes):
-    load_notes_from_file() 
+    load_notes_from_file()
     while True:
-        print("\n1. Add a Note")
+        print("1. Add a Note")
         print("2. Search Notes by Tag")
         print("3. Show All Notes (Sorted by Date)")
-        print("4. Edit a Note")
-        print("5. Delete a Note")
-        print("6. Return to the Main Menu")
-        
+        print("4. Sort Notes by Tag")
+        print("5. Edit a Note")
+        print("6. Delete a Note")
+        print("7. Return to the Main Menu")
+
         notes_choice = nsession.prompt("Select an option for notes: ")
 
         if notes_choice == '1':
-            
-            content = nsession.prompt("Enter the content of the note: ")
-            tags = nsession.prompt("Enter tags (separated by spaces): ").split()
-            note = Note(content, tags)  
-            notes.append(note)  
-            save_notes_to_file()  
-
+            add_tags_to_note()  
         elif notes_choice == '2':
-          
-            search_tag = nsession.prompt("Enter a tag to search for: ")
-            found_notes = [note for note in notes if search_tag in note.tags]
-            if found_notes:
-                print("Found notes:")
-                for i, note in enumerate(found_notes, 1):
-                    print(f"{i}. {note.content} (Tags: {', '.join(note.tags)}) (Date: {note.creation_date})")
-            else:
-                print("No notes found with this tag.")
+            search_notes_by_tag()  
 
         elif notes_choice == '3':
-            
+           
             if notes:
                 sorted_notes = sorted(notes, key=lambda note: note.creation_date)
                 print("All existing notes (Sorted by Date):")
@@ -65,6 +76,9 @@ def notes_func(notes):
                 print("There are no notes available.")
 
         elif notes_choice == '4':
+            sort_notes_by_tag() 
+
+        elif notes_choice == '5':
             
             if not notes:
                 print("There are no notes to edit.")
@@ -79,7 +93,7 @@ def notes_func(notes):
                 else:
                     print("Invalid note number.")
 
-        elif notes_choice == '5':
+        elif notes_choice == '6':
            
             if not notes:
                 print("There are no notes to delete.")
@@ -91,13 +105,15 @@ def notes_func(notes):
                 else:
                     print("Invalid note number.")
 
-        elif notes_choice == '6':
+        elif notes_choice == '7':
             break
 
-
         else:
-            print("Please select an option from 1 to 6. For help, refer to the Help file.")
-
+            print("Please select an option from 1 to 7. For help, refer to the Help file.")
 
     save_notes_to_file(notes)
+
+notes = []
+
+notes_func(notes
 
