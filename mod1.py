@@ -66,7 +66,7 @@ def search_notes_by_tag():
     if found_notes:
         print("Found notes:")
         for i, note in enumerate(found_notes, 1):
-            print(f"{i:^3}. Date: {note.creation_date.strftime('%d.%m.%Y %H:%M')}. NOTE: {note.content} (Tags: {', '.join(note.tags)}))")
+            print(f"{i:^3}. Date: {note.creation_date.strftime('%d.%m.%Y %H:%M')}. NOTE: {note.content} (Tags: {', '.join(note.tags)})")
     else:
         print("No notes found with this tag.")
 
@@ -111,7 +111,7 @@ def notes_func():
                 sorted_notes = sorted(notes, key=lambda note: note.creation_date)
                 print("All existing notes (Sorted by Date):")
                 for i, note in enumerate(sorted_notes, 1):
-                    print(f"{i:^3}. Date: {note.creation_date.strftime('%d.%m.%Y %H:%M')}. NOTE: {note.content} (Tags: {', '.join(note.tags)}))")
+                    print(f"{i:^3}. Date: {note.creation_date.strftime('%d.%m.%Y %H:%M')}. NOTE: {note.content} (Tags: {', '.join(note.tags)})")
             else:
                 print("There are no notes available.")
         elif notes_choice == '4':
