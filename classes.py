@@ -221,7 +221,7 @@ class AddressBook(UserDict):
 # class with user notes
 class Note:
     def __init__(self, content, tags):
-         """
+        """
         Initialize a Note object with content, tags, and creation date.
 
         Args:

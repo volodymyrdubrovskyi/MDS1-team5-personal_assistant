@@ -1,6 +1,13 @@
 from classes import *
 
 def birthday_record(book:AddressBook, args:list):
+    """
+    Add birthday for record in Adress Book
+    Args:
+        book (AddressBook): An AddressBook instance containing contact information.
+        user id (int): User ID in adress book
+        birthday (Birthday): user birthday 
+    """
     if len(args) ==2:
         try:
             if int(args[0]) in book.data:
@@ -15,6 +22,12 @@ def birthday_record(book:AddressBook, args:list):
         print('Error: Invalid command format.')
 
 def del_birthday(book:AddressBook, args:list):
+    """
+    Delete birthday from record in Adress Book
+    Args:
+        book (AddressBook): An AddressBook instance containing contact information.
+        user id (int): User ID in adress book
+    """
     if len(args) ==1:
         if int(args[0]) in book.data:
             rec = book.data[int(args[0])]
@@ -27,6 +40,13 @@ def del_birthday(book:AddressBook, args:list):
 
 
 def address_record(book:AddressBook, args:list):
+    """
+    Add address for record in Adress Book
+    Args:
+        book (AddressBook): An AddressBook instance containing contact information.
+        user id (int): User ID in adress book
+        address (str): user address 
+    """
     if len(args) >=2:
         if int(args[0]) in book.data:
             rec = book.data[int(args[0])]
@@ -38,6 +58,12 @@ def address_record(book:AddressBook, args:list):
         print('Error: Invalid command.')
 
 def del_address(book:AddressBook, args:list):
+    """
+    Delete address from record in Adress Book
+    Args:
+        book (AddressBook): An AddressBook instance containing contact information.
+        user id (int): User ID in adress book
+    """
     if len(args) ==1:
         if int(args[0]) in book.data:
             rec = book.data[int(args[0])]
@@ -48,10 +74,14 @@ def del_address(book:AddressBook, args:list):
     else:
         print('Error: Invalid command.')
 
-
-
-
 def add_email_in_rec(book:AddressBook, args:list):
+    """
+    Add email for record in Adress Book
+    Args:
+        book (AddressBook): An AddressBook instance containing contact information.
+        user id (int): User ID in adress book
+        email (Email): user email 
+    """
     if len(args) ==2:
         try:
             if int(args[0]) in book.data:
@@ -65,8 +95,14 @@ def add_email_in_rec(book:AddressBook, args:list):
     else:
         print('Error: Invalid command format.')
 
-# 
 def edit_email_in_rec(book:AddressBook, args:list):
+    """
+    Edit email for record in Adress Book
+    Args:
+        book (AddressBook): An AddressBook instance containing contact information.
+        user id (int): User ID in adress book
+        email (Email): user email 
+    """
     if len(args) ==3:
         try:
             rec = book.data[int(args[0])]
@@ -81,8 +117,14 @@ def edit_email_in_rec(book:AddressBook, args:list):
     else:
         print('Error: Invalid command format.')
 
-# 
 def del_email_in_rec(book:AddressBook, args:list):
+    """
+    Delete email for record in Adress Book
+    Args:
+        book (AddressBook): An AddressBook instance containing contact information.
+        user id (int): User ID in adress book
+        email (Email): user email 
+    """
     if len(args) ==2:
         try:
             rec = book.data[int(args[0])]
