@@ -1,31 +1,52 @@
 from classes import *
 
-# выход, тут сохраняем AdressBook
+
 def exit_procedure(book:AddressBook):
+    """
+    Saving AddressBook to file
+    Args:
+        book (AddressBook): An AddressBook instance containing contact information.
+    """
     book.save_to_file()
     print('Good bye!')
 
-# Создаем запись контакта
 def add_record(book:AddressBook, args:list):
+    """
+    Adding new record in Adress Book
+    Args:
+        book (AddressBook): An AddressBook instance containing contact information.
+        name (Name): user name 
+    """
     if len(args) ==1:
         book.add_record(Record(args[0], book))
         print('Record created sucessfully')
     else:
         print('Error: Invalid command format.')
 
-# редактирование имени контакта
 def edit_record(book:AddressBook, args:list):
-    if len(args) ==1:
+    """
+    Edit Name in the record in Adress Book
+    Args:
+        book (AddressBook): An AddressBook instance containing contact information.
+        user id (int): User ID in adress book
+        name (Name): new user name 
+    """
+    if len(args) ==2:
         if int(args[0]) in book.data:
-            book.del_record(args)
+            book.edit_record(args)
             print('Record sucessfully deleted')
         else:
             print(f'Contact id {args[0]} not found')
     else:
         print('Error: Invalid command format.')
 
-# удаление контакта
 def del_record(book:AddressBook, args:list):
+    """
+    Delete the record in Adress Book
+    Args:
+        book (AddressBook): An AddressBook instance containing contact information.
+        user id (int): User ID in adress book
+    """
     if len(args) ==1:
         if int(args[0]) in book.data:
             book.del_record(args)
@@ -35,8 +56,14 @@ def del_record(book:AddressBook, args:list):
     else:
         print('Error: Invalid command format.')
 
-# Добавляем номер телефона контакту
 def add_phone_in_rec(book:AddressBook, args:list):
+    """
+    Add phone to the record in Adress Book
+    Args:
+        book (AddressBook): An AddressBook instance containing contact information.
+        user id (int): User ID in adress book
+        phone (str): phone number to add
+    """
     if len(args) ==2:
         try:
             if int(args[0]) in book.data:
@@ -50,8 +77,15 @@ def add_phone_in_rec(book:AddressBook, args:list):
     else:
         print('Error: Invalid command format.')
 
-# Изменяем номер телефона контакта
 def edit_phone_in_rec(book:AddressBook, args:list):
+    """
+    Replace old phone by the new one in the record in Adress Book
+    Args:
+        book (AddressBook): An AddressBook instance containing contact information.
+        user id (int): User ID in adress book
+        old phone (str): phone number to change
+        new phone (str): new phone number
+    """
     if len(args) ==3:
         try:
             rec = book.data[int(args[0])]
@@ -66,8 +100,14 @@ def edit_phone_in_rec(book:AddressBook, args:list):
     else:
         print('Error: Invalid command format.')
 
-# Удаляем номер телефона в контакте
 def del_phone_in_rec(book:AddressBook, args:list):
+    """
+    Delete phone in the record in Adress Book
+    Args:
+        book (AddressBook): An AddressBook instance containing contact information.
+        user id (int): User ID in adress book
+        phone (str): phone number to delete
+    """
     if len(args) ==2:
         try:
             rec = book.data[int(args[0])]
@@ -80,8 +120,12 @@ def del_phone_in_rec(book:AddressBook, args:list):
     else:
         print('Error: Invalid command format.')
 
-# поиск
 def find_in_records(book:AddressBook, args:list):
+    """
+    search in Adress Book
+    Args:
+        search string (str): string for search in address book fields: Name, Adress, Phones, Emails, Birthday
+    """
     if len(args) ==1 and len(args[0]) > 1:
         count = 0
         sstring = args[0].lower()
