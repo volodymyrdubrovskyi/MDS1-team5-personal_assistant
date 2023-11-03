@@ -1,8 +1,10 @@
 from classes import *
 from mod4 import *
-from mod2 import session
+from mod2 import *
 from mod3 import *
 from mod1 import *
+from prompt_toolkit.history import InMemoryHistory
+from prompt_toolkit.auto_suggest import AutoSuggestFromHistory
 
 
 # считываем с терминала команду
@@ -24,7 +26,7 @@ def main():
 
     
     while True:
-        user_input = session.prompt("Enter a command: ")
+        user_input = session.prompt("Enter a command: ", auto_suggest=AutoSuggestFromHistory(), complete_while_typing=False)
         if user_input:
             command, *args = parse_input(user_input)
             
@@ -82,6 +84,14 @@ def main():
 
             elif command == 'note':
                 notes_func([])
+
+            elif command == 'next-birthdays':
+                birthdays = upcoming_birthdays(book, args)
+                if birthdays:
+                    for contact in birthdays:
+                        print(contact)
+                else:
+                    print('There are no upcoming birthdays')
 
             elif command == 'all':
                 for _, record in book.data.items():
