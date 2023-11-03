@@ -2,19 +2,18 @@
 Import necessary modules and classes
 """
 from classes import *
-from mod1 import *
 from mod2 import nsession
+from datetime import datetime
 import json
 
-notes=[]
-
-def save_notes_to_file(notes):
+def save_notes_to_file():
     """
     Save the list of notes to a JSON file.
 
     Args:
         notes (list): List of Note objects to be saved.
     """
+    global notes
     with open('notes.json', 'w') as file:
         data = [{'content': note.content, 'tags': note.tags, 'creation_date': note.creation_date.strftime('%Y-%m-%d %H:%M:%S')} for note in notes]
         json.dump(data, file)
@@ -38,7 +37,7 @@ def load_notes_from_file():
                 note.creation_date = creation_date
                 notes.append(note)
     except FileNotFoundError:
-        notes = []
+        pass
 
 
  # Function to add tags to a note and save it
@@ -47,11 +46,12 @@ def add_tags_to_note():
     """
     Add a new note with content and tags, and save it to the 'notes' list.
     """
+    global notes
     content = nsession.prompt("Enter the content of the note: ")
     tags = nsession.prompt("Enter tags (separated by spaces): ").split()
     note = Note(content, tags)
     notes.append(note)
-    save_notes_to_file(notes)  
+    save_notes_to_file()  
     
 
 # Function to search notes by a specific tag
@@ -60,12 +60,13 @@ def search_notes_by_tag():
     """
     Search for notes based on a specific tag and display the results.
     """
+    global notes
     search_tag = nsession.prompt("Enter a tag to search for: ")
     found_notes = [note for note in notes if search_tag in note.tags]
     if found_notes:
         print("Found notes:")
         for i, note in enumerate(found_notes, 1):
-            print(f"{i}. {note.content} (Tags: {', '.join(note.tags)}) (Date: {note.creation_date})")
+            print(f"{i:^3}. Date: {note.creation_date.strftime('%d.%m.%Y %H:%M')}. NOTE: {note.content} (Tags: {', '.join(note.tags)}))")
     else:
         print("No notes found with this tag.")
 
@@ -75,29 +76,31 @@ def sort_notes_by_tag():
     """
     Sort and display all existing notes by their tags.
     """
-    sorted_notes = sorted(notes, key=lambda note: note.tags[0])
+    global notes
+    sorted_notes = sorted(notes, key=lambda note: len(note.tags))
     print("All existing notes (Sorted by Tag):")
     for i, note in enumerate(sorted_notes, 1):
-        print(f"{i}. {note.content} (Tags: {', '.join(note.tags)}) (Date: {note.creation_date})")
+        print(f"{i:^3}. Date: {note.creation_date.strftime('%d.%m.%Y %H:%M')}. Number of Tags: [{len(note.tags):^4}]. Note: {note.content}")
 
 
 # Function to manage notes (add, search, edit, delete, etc.)
 
-def notes_func(notes):
+def notes_func():
     """
     Main function to manage notes including adding, searching, editing, and deleting notes.
     """
+    global notes
     load_notes_from_file()
     while True:
-        print("1. Add a Note")
+        print("\n1. Add a Note")
         print("2. Search Notes by Tag")
         print("3. Show All Notes (Sorted by Date)")
-        print("4. Sort Notes by Tag")
+        print("4. Sort Notes by number of Tags")
         print("5. Edit a Note")
         print("6. Delete a Note")
         print("7. Return to the Main Menu")
 
-        notes_choice = nsession.prompt("Select an option for notes: ")
+        notes_choice = nsession.prompt(">>> Select an option for notes: ")
 
         if notes_choice == '1':
             add_tags_to_note()  
@@ -108,7 +111,7 @@ def notes_func(notes):
                 sorted_notes = sorted(notes, key=lambda note: note.creation_date)
                 print("All existing notes (Sorted by Date):")
                 for i, note in enumerate(sorted_notes, 1):
-                    print(f"{i}. {note.content} (Tags: {', '.join(note.tags)}) (Date: {note.creation_date})")
+                    print(f"{i:^3}. Date: {note.creation_date.strftime('%d.%m.%Y %H:%M')}. NOTE: {note.content} (Tags: {', '.join(note.tags)}))")
             else:
                 print("There are no notes available.")
         elif notes_choice == '4':
@@ -141,5 +144,6 @@ def notes_func(notes):
         else:
             print("Please select an option from 1 to 7. For help, refer to the Help file.")
 
-    save_notes_to_file(notes)
+    save_notes_to_file()
 
+notes=[]

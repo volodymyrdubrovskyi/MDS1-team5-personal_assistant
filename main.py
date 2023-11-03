@@ -82,7 +82,7 @@ def main():
                 show_help()
 
             elif command == 'note':
-                notes_func([])
+                notes_func()
 
             elif command == 'next-birthdays':
                 birthdays = upcoming_birthdays(book, args)
