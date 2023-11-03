@@ -5,7 +5,7 @@ import datetime
 # You need to install the external package in the terminal first: pip install prompt_toolkit
 
 commands = WordCompleter([
-    "close", "exit", "hello", "add", "edit", "del", 
+    "close", "exit", "hello", "add", "edit", "del", "address", "del-address",
     "add-phone", "edit-phone", "del-phone", "all", 
     "add-email", "edit-email", "del-email", 
     "birthday", "del-birthday", "next-birthdays", "note", "help"], ignore_case=True)
