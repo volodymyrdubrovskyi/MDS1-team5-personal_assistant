@@ -69,7 +69,7 @@ def add_phone_in_rec(book:AddressBook, args:list):
             if int(args[0]) in book.data:
                 rec = book.data[int(args[0])]
                 rec.add_phone(args[1])
-                print('Contact added sucessfully.')
+                print('Phone added sucessfully.')
             else:
                 print(f'Contact id {args[0]} not found')
         except LenPhoneError:
