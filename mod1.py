@@ -1,14 +1,33 @@
+"""
+Import necessary modules and classes
+"""
 from classes import *
 from mod1 import *
 from mod2 import nsession
 import json
 
+"""
+Function to save notes to a JSON file
+"""
 def save_notes_to_file(notes):
+    """
+    Save the list of notes to a JSON file.
+
+    Args:
+        notes (list): List of Note objects to be saved.
+    """
     with open('notes.json', 'w') as file:
         data = [{'content': note.content, 'tags': note.tags, 'creation_date': note.creation_date.strftime('%Y-%m-%d %H:%M:%S')} for note in notes]
         json.dump(data, file)
 
+"""
+Function to load notes from a JSON file
+"""
 def load_notes_from_file():
+    """
+    Load notes from a JSON file and populate the 'notes' list.
+    If the file is not found, initialize an empty 'notes' list.
+    """
     try:
         with open('notes.json', 'r') as file:
             data = json.load(file)
@@ -22,14 +41,26 @@ def load_notes_from_file():
     except FileNotFoundError:
         notes = []
 
+""" 
+Function to add tags to a note and save it
+"""
 def add_tags_to_note():
+    """
+    Add a new note with content and tags, and save it to the 'notes' list.
+    """
     content = nsession.prompt("Enter the content of the note: ")
     tags = nsession.prompt("Enter tags (separated by spaces): ").split()
     note = Note(content, tags)
     notes.append(note)
     save_notes_to_file(notes)  
     
+"""
+Function to search notes by a specific tag
+"""
 def search_notes_by_tag():
+    """
+    Search for notes based on a specific tag and display the results.
+    """
     search_tag = nsession.prompt("Enter a tag to search for: ")
     found_notes = [note for note in notes if search_tag in note.tags]
     if found_notes:
@@ -39,15 +70,25 @@ def search_notes_by_tag():
     else:
         print("No notes found with this tag.")
 
-
+"""
+Function to sort and display notes by tag
+"""
 def sort_notes_by_tag():
-   
+    """
+    Sort and display all existing notes by their tags.
+    """
     sorted_notes = sorted(notes, key=lambda note: note.tags[0])
     print("All existing notes (Sorted by Tag):")
     for i, note in enumerate(sorted_notes, 1):
         print(f"{i}. {note.content} (Tags: {', '.join(note.tags)}) (Date: {note.creation_date})")
 
+""" 
+Function to manage notes (add, search, edit, delete, etc.)
+"""
 def notes_func(notes):
+    """
+    Main function to manage notes including adding, searching, editing, and deleting notes.
+    """
     load_notes_from_file()
     while True:
         print("1. Add a Note")
@@ -64,9 +105,7 @@ def notes_func(notes):
             add_tags_to_note()  
         elif notes_choice == '2':
             search_notes_by_tag()  
-
         elif notes_choice == '3':
-           
             if notes:
                 sorted_notes = sorted(notes, key=lambda note: note.creation_date)
                 print("All existing notes (Sorted by Date):")
@@ -74,12 +113,9 @@ def notes_func(notes):
                     print(f"{i}. {note.content} (Tags: {', '.join(note.tags)}) (Date: {note.creation_date})")
             else:
                 print("There are no notes available.")
-
         elif notes_choice == '4':
             sort_notes_by_tag() 
-
         elif notes_choice == '5':
-            
             if not notes:
                 print("There are no notes to edit.")
             else:
@@ -92,9 +128,7 @@ def notes_func(notes):
                     print("The note has been successfully edited.")
                 else:
                     print("Invalid note number.")
-
         elif notes_choice == '6':
-           
             if not notes:
                 print("There are no notes to delete.")
             else:
@@ -104,16 +138,20 @@ def notes_func(notes):
                     print("The note has been successfully deleted.")
                 else:
                     print("Invalid note number.")
-
         elif notes_choice == '7':
             break
-
         else:
             print("Please select an option from 1 to 7. For help, refer to the Help file.")
 
     save_notes_to_file(notes)
 
+"""
+Create an empty list to store notes
+"""
 notes = []
 
-notes_func(notes
+"""
+Call the main notes function
+"""
+notes_func(notes)
 
