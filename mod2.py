@@ -33,11 +33,21 @@ def upcoming_birthdays(book, args):
     today = datetime.date.today()
     birthday_contacts = []
     this_year = today.year
+    try:
+        for _, record in book.data.items():
+            if record.birthday is not None:
+                days_until_birthday = (record.birthday.value.replace(year=this_year) - today).days
+                if 0 <= days_until_birthday <= int(args[0]):
+                    birthday_contacts.append(record)
 
-    for _, record in book.data.items():
-        if record.birthday is not None:
-            days_until_birthday = (record.birthday.value.replace(year=this_year) - today).days
-            if 0 <= days_until_birthday <= int(args[0]):
-                birthday_contacts.append(record)
-
-    return birthday_contacts
+        if birthday_contacts:
+            return birthday_contacts
+        else:
+            print('There are no upcoming birthdays')
+            return False
+    except IndexError:
+        print('Command should be followed by "number of days" parameter')
+    except ValueError:
+        print('"number of days" parameter should be integer')
+    
+    

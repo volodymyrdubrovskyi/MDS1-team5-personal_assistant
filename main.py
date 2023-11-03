@@ -89,9 +89,7 @@ def main():
                 if birthdays:
                     for contact in birthdays:
                         print(contact)
-                else:
-                    print('There are no upcoming birthdays')
-
+                
             elif command == 'all':
                 for _, record in book.data.items():
                     print(record)
