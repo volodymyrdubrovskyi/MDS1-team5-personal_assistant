@@ -37,6 +37,8 @@ def upcoming_birthdays(book, args):
         for _, record in book.data.items():
             if record.birthday is not None:
                 days_until_birthday = (record.birthday.value.replace(year=this_year) - today).days
+                if days_until_birthday < 0:
+                    days_until_birthday = (record.birthday.value.replace(year=this_year + 1) - today).days
                 if 0 <= days_until_birthday <= int(args[0]):
                     birthday_contacts.append(record)
 
