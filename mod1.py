@@ -6,9 +6,9 @@ from mod1 import *
 from mod2 import nsession
 import json
 
-"""
-Function to save notes to a JSON file
-"""
+
+# Function to save notes to a JSON file
+
 def save_notes_to_file(notes):
     """
     Save the list of notes to a JSON file.
@@ -20,9 +20,9 @@ def save_notes_to_file(notes):
         data = [{'content': note.content, 'tags': note.tags, 'creation_date': note.creation_date.strftime('%Y-%m-%d %H:%M:%S')} for note in notes]
         json.dump(data, file)
 
-"""
-Function to load notes from a JSON file
-"""
+
+# Function to load notes from a JSON file
+
 def load_notes_from_file():
     """
     Load notes from a JSON file and populate the 'notes' list.
@@ -41,9 +41,9 @@ def load_notes_from_file():
     except FileNotFoundError:
         notes = []
 
-""" 
-Function to add tags to a note and save it
-"""
+
+ # Function to add tags to a note and save it
+
 def add_tags_to_note():
     """
     Add a new note with content and tags, and save it to the 'notes' list.
@@ -54,9 +54,9 @@ def add_tags_to_note():
     notes.append(note)
     save_notes_to_file(notes)  
     
-"""
-Function to search notes by a specific tag
-"""
+
+# Function to search notes by a specific tag
+
 def search_notes_by_tag():
     """
     Search for notes based on a specific tag and display the results.
@@ -70,9 +70,8 @@ def search_notes_by_tag():
     else:
         print("No notes found with this tag.")
 
-"""
-Function to sort and display notes by tag
-"""
+# Function to sort and display notes by tag
+
 def sort_notes_by_tag():
     """
     Sort and display all existing notes by their tags.
@@ -82,9 +81,9 @@ def sort_notes_by_tag():
     for i, note in enumerate(sorted_notes, 1):
         print(f"{i}. {note.content} (Tags: {', '.join(note.tags)}) (Date: {note.creation_date})")
 
-""" 
-Function to manage notes (add, search, edit, delete, etc.)
-"""
+
+# Function to manage notes (add, search, edit, delete, etc.)
+
 def notes_func(notes):
     """
     Main function to manage notes including adding, searching, editing, and deleting notes.
