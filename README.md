@@ -7,6 +7,7 @@ This is a Python application that provides functionality to manage an address bo
 - [Features](#features)
 - [Installation](#installation)
 - [Usage](#usage)
+- [Command Line Interface](#command-line-interface)
 - [Commands](#commands)
 - [License](#license)
 
@@ -55,6 +56,15 @@ This is a Python application that provides functionality to manage an address bo
     python main.py
     ```
 2. Follow the on-screen prompts to use the application.
+
+## Command Line Interface
+This application utilizes the prompt_toolkit library to provide a command line interface for interacting with the program. The prompt_toolkit package provides features such as auto-completion and history tracking.
+
+To use the command line interface effectively, you can take advantage of the following features:
+
+Auto-Completion: As you type commands, the application will provide auto-completion suggestions for available commands. For example, if you start typing "ad" and press the Tab key, the application will suggest commands like "add," "add-phone," and more.
+
+History Tracking: Your command history is tracked, so you can use the up and down arrow keys to navigate through your previous commands.
 
 ## Commands
 The application supports the following commands:
