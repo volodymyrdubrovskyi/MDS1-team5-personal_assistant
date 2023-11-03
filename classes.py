@@ -169,32 +169,63 @@ class Record:
     
 class AddressBook(UserDict):
     def __init__(self):
+        """
+        Initialize an AddressBook with a user ID counter and a data dictionary.
+        """
         self.user_id_counter = 0
         self.data = UserDict()
 
     def read_from_file(self):
+        """
+        Read data from a file and return an AddressBook instance.
+        """
         with open('abook.dat', 'rb') as fh:
             return pickle.load(fh)
 
     def save_to_file(self):
+        """
+        Save the AddressBook instance to a file.
+        """
         with open('abook.dat', 'wb') as fh:
             pickle.dump(self, fh)
     
-    # добавление записи в словарь адресной книги
     def add_record(self, record):
+        """
+        Add a new record to the AddressBook.
+
+        Args:
+            record: The record to add to the AddressBook.
+        """
         self.data[self.user_id_counter] = record
         self.user_id_counter += 1
     
-    # редактирование имени записи в адресной книге
     def edit_record(self, args):
+        """
+        Edit the name of a record in the AddressBook.
+
+        Args:
+            args (list): A list containing the record ID and the new name.
+        """
         self.data[int(args[0])].name.value = args[1]
 
-    # удаление записи в адресной книге
     def del_record(self, args):
+        """
+        Delete a record from the AddressBook.
+
+        Args:
+            args (list): A list containing the record ID to be deleted.
+        """
         self.data.pop(int(args[0]))
 
 class Note:
     def __init__(self, content, tags):
+         """
+        Initialize a Note object with content, tags, and creation date.
+
+        Args:
+            content (str): The content of the note.
+            tags (list): A list of tags associated with the note.
+        """
         self.content = content
         self.tags = tags
         self.creation_date = datetime.datetime.now() 
