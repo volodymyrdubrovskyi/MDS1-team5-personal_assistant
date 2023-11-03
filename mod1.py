@@ -6,8 +6,7 @@ from mod1 import *
 from mod2 import nsession
 import json
 
-
-# Function to save notes to a JSON file
+notes=[]
 
 def save_notes_to_file(notes):
     """
@@ -143,14 +142,4 @@ def notes_func(notes):
             print("Please select an option from 1 to 7. For help, refer to the Help file.")
 
     save_notes_to_file(notes)
-
-"""
-Create an empty list to store notes
-"""
-notes = []
-
-"""
-Call the main notes function
-"""
-notes_func(notes)
 
