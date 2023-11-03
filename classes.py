@@ -168,35 +168,66 @@ class Record:
     
 class AddressBook(UserDict):
     def __init__(self):
+        """
+        Initialize an AddressBook with a user ID counter and a data dictionary.
+        """
         self.user_id_counter = 0
         self.data = UserDict()
 
     # to load adress book from file
     def read_from_file(self):
+        """
+        Read data from a file and return an AddressBook instance.
+        """
         with open('abook.dat', 'rb') as fh:
             return pickle.load(fh)
 
     # to save adress book to file
     def save_to_file(self):
+        """
+        Save the AddressBook instance to a file.
+        """
         with open('abook.dat', 'wb') as fh:
             pickle.dump(self, fh)
     
-    # adding a record to address book
     def add_record(self, record):
+        """
+        Add a new record to the AddressBook.
+
+        Args:
+            record: The record to add to the AddressBook.
+        """
         self.data[self.user_id_counter] = record
         self.user_id_counter += 1
     
-    # to edit record name in address book
     def edit_record(self, args):
+        """
+        Edit the name of a record in the AddressBook.
+
+        Args:
+            args (list): A list containing the record ID and the new name.
+        """
         self.data[int(args[0])].name.value = args[1]
 
-    # to remove a record from adress book
     def del_record(self, args):
+        """
+        Delete a record from the AddressBook.
+
+        Args:
+            args (list): A list containing the record ID to be deleted.
+        """
         self.data.pop(int(args[0]))
 
 # class with user notes
 class Note:
     def __init__(self, content, tags):
+         """
+        Initialize a Note object with content, tags, and creation date.
+
+        Args:
+            content (str): The content of the note.
+            tags (list): A list of tags associated with the note.
+        """
         self.content = content
         self.tags = tags
         self.creation_date = datetime.datetime.now() 
