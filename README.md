@@ -84,10 +84,18 @@ The application supports the following commands:
 - del-address [Contact_id]: Remove an address from a contact.
 - find [searchstring]: Search for contact records based on a search string.
 - help: Display a list of available commands.
-- note: Switch to the notes management interface.
+- note: Add a note to Note Book.
+- all-notes: List all notes
+- edit-note [Note_id] [Note]: Edit text of note
+- del-note [Note_id]: Remove note from Note Book
+- add-tag [Note_id] [Tag]: Add tag to note
+- del-tag [Note_id] [Tag]: Remove tag from note
+- find-notes [searchstring]: List all notes with search string data in note and tags. Search string must be 2 symbols minimum
+- find-tags [searchstring]: List all notes with search string data in tags. Searchstring must be 2 symbols minimum
+- sort-tag: List all notes sorted by number of tags
 - next-birthdays [int]: Show upcoming birthdays within the specified number of days.
 - all: List all contact records.
 - close or exit: Exit the application.
 
 ## License
-This project is licensed under the MIT License. See the [LICENSE](#https://opensource.org/license/mit/) for details.
+This project is licensed under the MIT License. See the [LICENSE](https://opensource.org/license/mit/) for details.
