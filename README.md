@@ -98,4 +98,4 @@ The application supports the following commands:
 - close or exit: Exit the application.
 
 ## License
-This project is licensed under the MIT License. See the [LICENSE](#https://opensource.org/license/mit/) for details.
+This project is licensed under the MIT License. See the [LICENSE](https://opensource.org/license/mit/) for details.
