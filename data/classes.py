@@ -179,7 +179,7 @@ class AddressBook(UserDict):
         """
         Read data from a file and return an AddressBook instance.
         """
-        with open('abook.dat', 'rb') as fh:
+        with open('data\\abook.dat', 'rb') as fh:
             return pickle.load(fh)
 
     # to save adress book to file
@@ -187,7 +187,7 @@ class AddressBook(UserDict):
         """
         Save the AddressBook instance to a file.
         """
-        with open('abook.dat', 'wb') as fh:
+        with open('data\\abook.dat', 'wb') as fh:
             pickle.dump(self, fh)
     
     def add_record(self, record):
@@ -203,7 +203,6 @@ class AddressBook(UserDict):
     def edit_record(self, args):
         """
         Edit the name of a record in the AddressBook.
-
         Args:
             args (list): A list containing the record ID and the new name.
         """
@@ -220,7 +219,7 @@ class AddressBook(UserDict):
 
 # class with user notes
 class Note:
-    def __init__(self, content, tags):
+    def __init__(self, nbook, content):
         """
         Initialize a Note object with content, tags, and creation date.
 
@@ -228,6 +227,88 @@ class Note:
             content (str): The content of the note.
             tags (list): A list of tags associated with the note.
         """
+        self.note_id = nbook.note_id_counter
         self.content = content
-        self.tags = tags
-        self.creation_date = datetime.datetime.now() 
+        self.tags = list()
+        self.creation_date = datetime.datetime.now()
+    
+    def add_tag(self, tag):
+        new_tag = True
+        for t in self.tags:
+            if t == tag:
+                new_tag = False
+        if new_tag:
+            self.tags.append(tag)
+    
+    # to remove tag from record
+    def remove_tag(self, tag):
+        find_tag = False
+        for t in self.tags:
+            if t == tag:
+                find_tag = True
+        if find_tag:
+            self.tags.remove(tag)
+        else:
+            raise PhoneNotFindError
+
+    def searchstring(self):
+        tags_line = f"{' '.join(p for p in self.tags)}" if self.tags else ""
+        res = f"{self.content} " + tags_line
+        return res.lower()
+    
+    def search_tag(self):
+        res = f"{' '.join(p for p in self.tags)}" if self.tags else ""
+        return res.lower()
+
+    def __str__(self):
+        #return f"ID: {self.note_id:^3}. DATE: {self.creation_date.strftime('%d.%m.%Y %H:%M')}. NOTE: {self.content} [Tags: {', '.join(self.tags)}]"
+        return f"ID: {self.note_id:^3}| Tags: {', '.join(self.tags):>20} | {self.content:<70}"
+
+# NoteBook class
+class NoteBook(UserDict):
+    def __init__(self):
+        """
+        Initialize an NoteBook with a user ID counter and a data dictionary.
+        """
+        self.note_id_counter = 0
+        self.data = UserDict()
+        self.max_tags_len = 5 + 2
+
+    def add_record(self,note):
+        """
+        Add a new note to the NoteBook.
+        Args:
+            note: The record to add to the NoteBook.
+        """
+        self.data[self.note_id_counter] = note
+        self.note_id_counter += 1
+
+    def read_from_file(self):
+        """
+        Read data from a file and return an AddressBook instance.
+        """
+        with open('data\\nbook.dat', 'rb') as fh:
+            return pickle.load(fh)
+        
+    def save_to_file(self):
+        """
+        Save the NoteBook instance to a file.
+        """
+        with open('data\\nbook.dat', 'wb') as fh:
+            pickle.dump(self, fh)
+
+    def edit_record(self, args):
+        """
+        Edit the name of a record in the AddressBook.
+        Args:
+            args (list): A list containing the record ID and the new name.
+        """
+        self.data[int(args[0])].content = (' '.join(args[1:]))
+
+    def del_note(self, args):
+        """
+        Delete a Note from the Note Book.
+        Args:
+            args (list): A list containing the record ID to be deleted.
+        """
+        self.data.pop(int(args[0]))
