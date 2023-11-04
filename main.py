@@ -1,21 +1,19 @@
-from classes import *
-from mod4 import *
-from mod2 import *
-from mod3 import *
-from mod1 import *
-from prompt_toolkit.history import InMemoryHistory
 from prompt_toolkit.auto_suggest import AutoSuggestFromHistory
+from data.global_declarations import commands, session, exit_procedure, parse_input, show_help
+from data.classes import AddressBook, NoteBook
 
+from data.address_book_functions import (   upcoming_birthdays, add_email_in_rec, edit_email_in_rec, del_email_in_rec, 
+                                            birthday_record, del_birthday, address_record, del_address, 
+                                            add_record, edit_record, del_record, add_phone_in_rec, edit_phone_in_rec, del_phone_in_rec,
+                                            find_in_records  )
 
-# считываем с терминала команду
-def parse_input(user_input):
-    cmd, *args = user_input.split()
-    cmd = cmd.strip().lower()
-    return cmd, *args
+from data.notebook_functions import find_in_notes, find_in_tags, sort_by_tags, add_note, edit_note, del_note, add_tag, del_tag
+
 
 def main():
 
     print('Welcome to the assistant bot!')
+    print('Type "help" to see all commands list and descriptions')
 
     # AddressBook load from 'abook.dat' file. If file doesn't exist, create new empty AddressBook
     try:
@@ -23,6 +21,11 @@ def main():
     except:
         book = AddressBook()
 
+    # NoteBook load from 'nbook.dat' file. If file doesn't exist, create new empty NoteBook
+    try:
+        nbook = NoteBook().read_from_file()
+    except:
+        nbook = NoteBook()
     
     while True:
         user_input = session.prompt("Enter a command: ", auto_suggest=AutoSuggestFromHistory(), complete_while_typing=False)
@@ -30,7 +33,7 @@ def main():
             command, *args = parse_input(user_input)
             
             if command in ['close', 'exit']:
-                exit_procedure(book)
+                exit_procedure(book, nbook)
                 break
 
             elif command == 'hello':
@@ -78,11 +81,36 @@ def main():
             elif command == 'find':
                 find_in_records(book, args)
 
+            elif command == 'find-notes':
+                find_in_notes(nbook, args)
+
+            elif command == 'find-tag':
+                find_in_tags(nbook, args)
+
+            elif command == 'sort-tag':
+                sort_by_tags(nbook, args)
+
             elif command == 'help':
                 show_help()
 
             elif command == 'note':
-                notes_func()
+                add_note(nbook, args)
+
+            elif command == 'edit-note':
+                edit_note(nbook, args)
+
+            elif command == 'del-note':
+                del_note(nbook, args)
+
+            elif command == 'add-tag':
+                add_tag(nbook, args)
+
+            elif command == 'del-tag':
+                del_tag(nbook, args)
+
+            elif command == 'all-notes':
+                for _, note in nbook.data.items():
+                    print(note)
 
             elif command == 'next-birthdays':
                 birthdays = upcoming_birthdays(book, args)
