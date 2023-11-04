@@ -6,9 +6,9 @@ from data.classes import AddressBook, NoteBook
 commands = WordCompleter([
     "close", "exit", "hello", "add", "edit", "del", "address", "del-address",
     "add-phone", "edit-phone", "del-phone", "all", 
-    "add-email", "edit-email", "del-email", 
+    "add-email", "edit-email", "del-email", "find",
     "birthday", "del-birthday", "next-birthdays", "note", "help", "sort-tag",
-    "edit-note", "all-notes", "del-note", "add-tag", "del-tag", "find-notes, find-tag"], ignore_case=True)
+    "edit-note", "all-notes", "del-note", "add-tag", "del-tag", "find-notes", "find-tag"], ignore_case=True)
 session = PromptSession(completer=commands)
 
 def exit_procedure(book:AddressBook, nbook:NoteBook):
