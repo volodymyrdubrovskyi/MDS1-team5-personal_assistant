@@ -44,7 +44,7 @@ def show_help():
                    ['del-address', '[Contact_id]', 'remove address from [Contact_id]'],
                    ['birthday', '[Contact_id] [Birthday]', 'set for user [Contact_id] a birthday at [Birthday]'],
                    ['del-birthday', '[Contact_id]', 'remove birthday from [Contact_id]'],
-                   ['find', '[searchstring]', 'list all users with [searchstring] data in Name, Phones, Address, Emails, Birthdays. [searchstring] must be 2 symbols minimum'],
+                   ['find', '[search]', 'list [search] data in Name, Phones, Address, Emails, Birthdays. [search] must be 2 symbols min'],
                    ['next-birthdays', '[int]', 'shows upcoming birthdays if exist in period from today till [int] days'],
                    ['note', '', 'Add a note to Note Book'],
                    ['all-notes', '', 'list all notes'],

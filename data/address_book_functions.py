@@ -1,5 +1,5 @@
 import datetime
-from data.classes import AddressBook, Birthday, DateFormatError, TypeEmailError, RecordNotFindError, PhoneNotFindError, Record, LenPhoneError
+from data.classes import AddressBook, Birthday, DateFormatError, TypeEmailError, RecordNotFindError, PhoneNotFindError, Record, LenPhoneError, TypePhoneError
 
 def upcoming_birthdays(book, args):
     """
@@ -242,6 +242,8 @@ def add_phone_in_rec(book:AddressBook, args:list):
                 print(f'Contact id {args[0]} not found')
         except LenPhoneError:
             print('Error: Phone must be 10 symbols')
+        except TypePhoneError:
+            print('Error: Phone must be 10 symbols')
     else:
         print('Error: Invalid command format.')
 
@@ -265,6 +267,8 @@ def edit_phone_in_rec(book:AddressBook, args:list):
             print('Error: Phone must be 10 symbols')
         except PhoneNotFindError:
             print('Error: Phone to change is not found.')
+        except TypePhoneError:
+            print('Error: Phone must consist from digits')
     else:
         print('Error: Invalid command format.')
 
